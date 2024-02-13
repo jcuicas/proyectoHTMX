@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto HTMX</title>
+    <link rel="stylesheet" href="assets/css/pico.min.css">
+    <script src="assets/js/htmx.min.js"></script>
+    <script src="assets/js/client-side-templates.js"></script>
+    <script src="assets/js/handlebars.min.js"></script>
+</head>
+<body>
+
+    <header class="container">
+        <article data-theme="light">
+            <h1>Lista de posts con HTMX</h1>
+        </article>
+      <!-- Modal -->
+      <section id="modal">
+        <!-- <h2>Modal</h2> -->
+        <button 
+          class="contrast" 
+          data-target="modal-example" 
+          onclick="toggleModal(event)"
+          hx-ext="client-side-templates"
+          hx-trigger="click"
+          hx-get="https://jsonplaceholder.typicode.com/users"
+          hx-swap="innerHTML"
+          hx-target="#list-users"
+          hx-indicator="#loading-users"
+          handlebars-array-template="template-user"
+        >
+          Ver lista de usuarios
+        </button>
+      </section>
+      <!-- ./ Modal -->        
+    </header>
+
+    <main class="container">
+        <div
+        hx-ext="client-side-templates"
+        hx-trigger="load"
+        hx-get="https://jsonplaceholder.typicode.com/posts"
+        hx-swap="innerHTML"
+        hx-target="#contenido"
+        hx-indicator="#loading-posts"
+        handlebars-array-template="template-posts"
+        >
+            <div id="contenido">
+                <span id="loading-posts" aria-busy="true">Cargando...</span>
+            </div>
+        
+            <template id="template-posts">
+                {{#each this}}
+                  <h2>{{title}}</h2>
+                  <h5>Post Nro. {{id}}</h5>
+                  <p>{{body}}</p>
+                {{/each}}
+            </template>
+
+            <template id="template-user">
+                {{#each this}}
+                  <tr>
+                    <th scope="row">{{id}}</th>
+                    <td>{{name}}</td>
+                    <td>{{username}}</td>
+                    <td>{{email}}</td>
+                  </tr>
+                {{/each}}
+            </template>
+        </div>
+    </main>
+
+    <!-- Modal example -->
+    <dialog id="modal-example" class="modal-is-open">
+        <article>
+          <header>
+            <a
+              href="#close"
+              aria-label="Close"
+              rel="prev"
+              data-target="modal-example"
+              onclick="toggleModal(event)"
+            ></a>
+            <h3>Listado de usuarios</h3>
+          </header>
+          <!-- <p>
+            Cras sit amet maximus risus. Pellentesque sodales odio sit amet augue finibus
+            pellentesque. Nullam finibus risus non semper euismod.
+          </p> --> 
+          <!-- Tables -->
+          <section id="tables">
+            <!-- <h2>Tables</h2> -->
+            <div class="overflow-auto">
+                <table class="striped">
+                    <thead data-theme="light">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombres</th>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Email</th>
+                        </tr>
+                    </thead>
+                    <tbody id="list-users">
+                        <!-- <span id="loading-users" aria-busy="true">Cargando...</span> -->
+                    </tbody>
+                </table>
+            </div>
+          </section>
+        <!-- ./ Tables -->      
+          <footer>
+            <a
+              href="#cancel"
+              role="button"
+              class="secondary"
+              data-target="modal-example"
+              onclick="toggleModal(event)"
+              >Cerrar
+            </a>
+            <!-- <a 
+              href="#confirm"
+              role="button"
+              data-target="modal-example"
+              onclick="toggleModal(event)"
+            >Confirm
+            </a> -->
+          </footer>
+        </article>
+    </dialog>
+    <!-- ./ Modal example -->    
+
+    <script src="assets/js/minimal-theme-switcher.js"></script>
+    <script src="assets/js/modal.js"></script>
+</body>
+</html>
