@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyecto HTMX</title>
     <link rel="stylesheet" href="assets/css/pico.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
     <script src="assets/js/htmx.min.js"></script>
     <script src="assets/js/client-side-templates.js"></script>
     <script src="assets/js/handlebars.min.js"></script>
@@ -72,7 +73,7 @@
     </main>
 
     <!-- Modal example -->
-    <dialog id="modal-example" class="modal-is-open">
+    <dialog id="modal-example" class="modal-is-open" data-theme="dark">
         <article>
           <header>
             <a
@@ -92,31 +93,31 @@
           <section id="tables">
             <!-- <h2>Tables</h2> -->
             <div class="overflow-auto">
-                <table class="striped">
-                    <thead data-theme="light">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombres</th>
-                            <th scope="col">Usuario</th>
-                            <th scope="col">Email</th>
-                        </tr>
-                    </thead>
-                    <tbody id="list-users">
-                        <!-- <span id="loading-users" aria-busy="true">Cargando...</span> -->
-                    </tbody>
-                </table>
+              <table class="striped">
+                <thead data-theme="light">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombres</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Email</th>
+                  </tr>
+                </thead>
+                <tbody id="list-users" class="scroller-table">
+                  <!-- <span id="loading-users" aria-busy="true">Cargando...</span> -->
+                </tbody>
+              </table>
             </div>
           </section>
-        <!-- ./ Tables -->      
+          <!-- ./ Tables -->      
           <footer>
-            <a
+            <!-- <a
               href="#cancel"
               role="button"
               class="secondary"
               data-target="modal-example"
               onclick="toggleModal(event)"
               >Cerrar
-            </a>
+            </a> -->
             <!-- <a 
               href="#confirm"
               role="button"
